@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Header from './components/Header';
+import emojis from './emojis.json'
+import Results from './components/Results';
+import Form from './components/Form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    emojis,
+    currentSearches: '',
+    currentResults: []
+  }
+  render () {
+    return (
+      <main> 
+        <Header />
+        <Results emojis={this.state.emojis} currentSearches={this.state.currentSearches} updateResults={this.updateResults}/>
+        <Form updateCurrentSearch={this.updateCurrentSearch}/>
+      </main>
+    )
+  }
+  updateCurrentSearch = (search) => {
+    this.setState({
+      currentSearches: search
+    })
+  }
+  updateResults = (results) => {
+    this.setState({
+      currentResults: results
+    })
+  }
 }
 
 export default App;
